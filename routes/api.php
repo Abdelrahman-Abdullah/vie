@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\UserRegistrationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+#region User All API Routes
+Route::prefix('user')->name('user.')
+    ->group(function () {
+    Route::post('register', UserRegistrationController::class)->name('register');
+});
+#endregion
