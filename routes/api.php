@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\UserAuthSessions;
 use App\Http\Controllers\API\UserRegistrationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,5 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('user')->name('user.')
     ->group(function () {
     Route::post('register', UserRegistrationController::class)->name('register');
+    Route::post('login', [UserAuthSessions::class, 'login'])->name('login');
+    #------------------------------// User Authenticated Routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout', [UserAuthSessions::class, 'logout'])->name('logout');
+    });
 });
 #endregion
