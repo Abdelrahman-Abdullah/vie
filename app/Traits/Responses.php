@@ -1,5 +1,6 @@
 <?php
-class Responses {
+namespace App\Traits;
+trait Responses {
     public static function success($message, $data = null, $statusCode = 200) {
         return response()->json([
             'message' => $message,

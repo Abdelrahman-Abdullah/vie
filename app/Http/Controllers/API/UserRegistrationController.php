@@ -6,17 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UserRegisterRequest;
 use App\Http\Resources\API\UserResource;
 use App\Models\User;
+use App\Traits\Responses;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserRegistrationController extends Controller
 {
-    public function __invoke(UserRegisterRequest $request): \Illuminate\Http\JsonResponse
+    use Responses; // Custom Trait for API Responses
+
+    public function __invoke(UserRegisterRequest $request): JsonResponse
     {
         $user = User::create($request->validated());
-        return response()->json([
-            'message' => 'User created successfully, Please login to continue.',
-            'statusCode' => 201,
-            'data' => new UserResource($user),
-        ], 201);
+        return self::success(
+            'User created successfully, Please login to continue.',
+            new UserResource($user), // data
+            201,
+        );
     }
 }
