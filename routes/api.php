@@ -25,5 +25,9 @@ Route::prefix('user')->name('user.')
     ->group(function () {
     Route::post('register', UserRegistrationController::class)->name('register');
     Route::post('login', [UserAuthSessions::class, 'login'])->name('login');
+    #------------------------------// User Authenticated Routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout', [UserAuthSessions::class, 'logout'])->name('logout');
+    });
 });
 #endregion

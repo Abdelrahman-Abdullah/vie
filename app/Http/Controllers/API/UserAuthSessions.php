@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UserLoginRequest;
 use App\Http\Resources\API\UserResource;
 use App\Traits\Responses;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserAuthSessions extends Controller
@@ -20,6 +21,14 @@ class UserAuthSessions extends Controller
         return self::success('User Logged In', [
             'token' => $token,
             'user' => new UserResource($user),
+        ]);
+    }
+    public function logout(): JsonResponse
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'message' => 'User Logged Out',
+            'statusCode' => 200,
         ]);
     }
 }
