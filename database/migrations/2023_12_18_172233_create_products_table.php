@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string("slug")->unique();
             $table->decimal('price', 10, 2);
-            $table->string('image')->default('Images/Products/product-default.png');
+            $table->string('image')->default('Images/Product/product-default.png');
             $table->text('description')->nullable();
             $table->timestamps();
         });
