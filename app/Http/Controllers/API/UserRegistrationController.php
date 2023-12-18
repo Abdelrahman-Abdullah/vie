@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 class UserRegistrationController extends Controller
 {
     use Responses; // Custom Trait for API Responses
-
     public function __invoke(UserRegisterRequest $request): JsonResponse
     {
         $user = User::create($request->validated());
