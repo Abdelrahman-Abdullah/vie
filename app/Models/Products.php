@@ -19,6 +19,8 @@ class Products extends Model
         'category_id'
     ];
 
+    protected $with = ['category:name'];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
