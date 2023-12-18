@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\API\ProductResource;
 use App\Models\Products;
+use App\Traits\Responses;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+    use Responses;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return self::success('Products retrieved successfully', [
+            'products' => ProductResource::collection(Products::all()),
+        ]);
     }
 
     /**
