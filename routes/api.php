@@ -43,5 +43,6 @@ Route::prefix('categories')->name('categories.')
 Route::prefix('products')->name('products.')
     ->group(function () {
     Route::get('', [ProductsController::class, 'index'])->name('index');
+    Route::get('{product:name}', [ProductsController::class, 'show'])->name('show');
 });
 #endregion
