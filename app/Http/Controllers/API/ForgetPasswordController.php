@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ForgetPassowrdController extends Controller
+class ForgetPasswordController extends Controller
 {
     /**
      * Handle the incoming request.
