@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ForgetPasswordController;
 use App\Http\Controllers\API\UserAuthSessions;
 use App\Http\Controllers\API\UserRegistrationController;
 use App\Http\Controllers\CategoryController;
@@ -27,6 +28,7 @@ Route::prefix('users')->name('users.')
     ->group(function () {
     Route::post('register', UserRegistrationController::class)->name('register');
     Route::post('login', [UserAuthSessions::class, 'login'])->name('login');
+    Route::post('forget-password', ForgetPasswordController::class)->name('forget-password');
     #------------------------------// User Authenticated Routes
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [UserAuthSessions::class, 'logout'])->name('logout');
