@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('code');
-            $table->timestamp('expires_at');
+            $table->timestamp('expires_at')->default(now()->addMinutes(30));
             $table->timestamps();
         });
     }
