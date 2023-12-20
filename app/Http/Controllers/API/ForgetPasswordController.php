@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\UserResetPasswordRequest;
+use App\Http\Requests\API\UserForgetPasswordRequest;
 use App\Models\ResetPassword;
 use App\Notifications\ResetPasswordCodeNotification;
 use App\Services\ResetPasswordService;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 use Throwable;
 
 class ForgetPasswordController extends Controller
@@ -20,7 +20,7 @@ class ForgetPasswordController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(UserResetPasswordRequest $request)
+    public function __invoke(UserForgetPasswordRequest $request)
     {
         $validatedEmail = $request->validated('email');
         try {
@@ -28,7 +28,7 @@ class ForgetPasswordController extends Controller
             $resetCode = $this->resetPasswordService->getResetCode();
             //Save Reset Code
             $this->resetPasswordService->saveResetCode($validatedEmail, $resetCode);
-            // Send Email
+            //Send Email
             Notification::route('mail', $validatedEmail)
                 ->notify(new ResetPasswordCodeNotification($resetCode));
             // Return Response
