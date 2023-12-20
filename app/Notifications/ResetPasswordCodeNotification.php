@@ -14,7 +14,7 @@ class ResetPasswordCodeNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(protected string $resetCode)
     {
         //
     }
@@ -35,8 +35,9 @@ class ResetPasswordCodeNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+                    ->subject('Vie - Your Password Reset Code',)
                     ->greeting("Hello !")
-                    ->line('Your reset code is : ' . $notifiable->reset_code)
+                    ->line('Your reset code is : ' . $this->resetCode)
                     ->line("If you didn't request a password reset, no further action is required.")
                     ->line('Thank you for using our application!')
                     ->salutation("Regards,");
