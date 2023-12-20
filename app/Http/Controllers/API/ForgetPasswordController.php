@@ -22,13 +22,14 @@ class ForgetPasswordController extends Controller
      */
     public function __invoke(UserResetPasswordRequest $request)
     {
+        $validatedEmail = $request->validated('email');
         try {
             //Generate Reset Code
             $resetCode = $this->resetPasswordService->getResetCode();
             //Save Reset Code
-            $this->resetPasswordService->saveResetCode($request->validated('email'), $resetCode);
+            $this->resetPasswordService->saveResetCode($validatedEmail, $resetCode);
             // Send Email
-            Notification::route('mail', $request->validated('email'))
+            Notification::route('mail', $validatedEmail)
                 ->notify(new ResetPasswordCodeNotification($resetCode));
             // Return Response
             return response()->json(['message' => 'Reset Code Sent Successfully']);
