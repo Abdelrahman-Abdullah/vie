@@ -22,7 +22,7 @@ class CheckPasswordResetCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|size:6',
+            'code' => 'required|string|size:6|exists:reset_passwords,code',
         ];
     }
 }
