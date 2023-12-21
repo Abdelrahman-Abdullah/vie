@@ -16,4 +16,13 @@ class ResetPasswordService
             'code' => $code,
         ]);
     }
+    public function isCodeExist(string $code): ?ResetPassword
+    {
+        return  ResetPassword::firstWhere('code', $code);
+    }
+    public function isCodeExpired(string $code): bool
+    {
+        $resetPassword = $this->isCodeExist($code);
+        return $resetPassword !== null && now() > $resetPassword->expires_at;
+    }
 }
