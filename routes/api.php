@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CheckPasswordResetCodeController;
 use App\Http\Controllers\API\ForgetPasswordController;
 use App\Http\Controllers\API\UserAuthSessions;
 use App\Http\Controllers\API\UserRegistrationController;
@@ -29,6 +30,7 @@ Route::prefix('users')->name('users.')
     Route::post('register', UserRegistrationController::class)->name('register');
     Route::post('login', [UserAuthSessions::class, 'login'])->name('login');
     Route::post('forget-password', ForgetPasswordController::class)->name('forget-password');
+    Route::post('check-code', CheckPasswordResetCodeController::class)->name('check-code');
     #------------------------------// User Authenticated Routes
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [UserAuthSessions::class, 'logout'])->name('logout');
