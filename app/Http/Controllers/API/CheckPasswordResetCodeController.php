@@ -21,7 +21,6 @@ class CheckPasswordResetCodeController extends Controller
         $isCodeExist = $this->resetPasswordService->isCodeExist($code);
         $isCodeExpired = $this->resetPasswordService->isCodeExpired($code);
         if ($isCodeExist && !$isCodeExpired) {
-            $isCodeExist->delete();
             return response()->json(['message' => 'Code Is Correct']);
         }
         return response()->json(['message' => 'Code Was Expired Please Try Another One..'], 400);
