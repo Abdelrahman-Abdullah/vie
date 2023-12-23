@@ -23,7 +23,6 @@ class CheckPasswordResetCodeController extends Controller
         if ($isCodeExist && !$isCodeExpired) {
             return response()->json(['message' => 'Code Is Correct']);
         }
-        $isCodeExist->delete();
         return response()->json(['message' => 'Code Was Expired Please Try Another One..'], 400);
     }
 }

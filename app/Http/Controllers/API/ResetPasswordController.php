@@ -21,6 +21,7 @@ class ResetPasswordController extends Controller
             User::firstWhere('email', $isCodeExist->email)->update([
                 'password' => $request->validated('password')
             ]);
+            $isCodeExist->delete();
             return response()->json(['message' => 'Password Reset Successfully']);
         }
         return response()->json(['message' => 'Invalid Code or Code Expired..']);
