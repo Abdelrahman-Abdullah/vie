@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CheckPasswordResetCodeController;
 use App\Http\Controllers\API\ForgetPasswordController;
+use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserAuthSessions;
 use App\Http\Controllers\API\UserRegistrationController;
 use App\Http\Controllers\CategoryController;
@@ -31,6 +32,7 @@ Route::prefix('users')->name('users.')
     Route::post('login', [UserAuthSessions::class, 'login'])->name('login');
     Route::post('forget-password', ForgetPasswordController::class)->name('forget-password');
     Route::post('check-code', CheckPasswordResetCodeController::class)->name('check-code');
+    Route::post('reset-password', ResetPasswordController::class)->name('reset-password');
     #------------------------------// User Authenticated Routes
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [UserAuthSessions::class, 'logout'])->name('logout');
