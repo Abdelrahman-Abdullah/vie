@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CheckPasswordResetCodeController;
 use App\Http\Controllers\API\ForgetPasswordController;
+use App\Http\Controllers\API\PaymobMobileWalletController;
 use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserAuthSessions;
 use App\Http\Controllers\API\UserRegistrationController;
