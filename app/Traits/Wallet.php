@@ -33,5 +33,30 @@ trait Wallet
             ], 500);
         }
     }
+    protected function orderRegistration(PayOrderRequest $request): bool|static|JsonResponse
+    {
+        try {
+            $order_items = $this->paymobWalletService->getOrderItems($request->validated());
+
+            $response = Http::withHeaders(
+                $this->paymobWalletService->getUnAuthRequestHeader()
+            )->post($this->base_url . '/ecommerce/orders', [
+                'auth_token' => $this->auth_token,// get auth token from getAuthToken() method
+                'delivery_needed' => false ,// true or false,
+                'amount_cents'=> '100', // 100
+                'currency'=> 'EGP', // EGP
+                 'items' => $order_items,
+            ]);
+
+            $this->order_id = $response->json()['id'];
+            return $this;
+
+
+        }catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 }

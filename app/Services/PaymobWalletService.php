@@ -17,7 +17,19 @@ class PaymobWalletService
             'Accept' => 'application/json',
         ];
     }
-
+    public function getOrderItems(array $orders): array
+    {
+        $items = [];
+        foreach ($orders['items'] as $order) {
+            $items[] = [
+                'name' => $order['name'],
+                'amount_cents' => $order['price'] * 100,
+                'description' => $order['description'],
+                'quantity' => $order['quantity'] ?? 1,
+            ];
+        }
+        return $items;
+    }
 
 
 }
