@@ -58,5 +58,37 @@ trait Wallet
             ], 500);
         }
     }
+    protected function getPaymentKey (): JsonResponse|string|array
+    {
+        try {
+            $response = Http::withHeaders(
+                $this->paymobWalletService->getUnAuthRequestHeader()
+            )->post($this->base_url . '/acceptance/payment_keys', [
+                'auth_token' => $this->auth_token, // get auth token from getAuthToken() method
+                'amount_cents' => '100', // 100
+                'expiration' => 3600, // 3600
+                'order_id' => $this->order_id, // 878833
+                'currency' => 'EGP', // EGP
+                'integration_id' =>  '4104581', // 204
+                'billing_data' => [
+                    'first_name' => 'John', // John
+                    'last_name' => 'Doe', // Doe
+                    'phone_number' => '+201111111111', // +201111111111
+                    'email' => 'test@gmail.com',
+                    'street' => 'NA', // NA
+                    'building' => 'NA', // NA
+                    'floor' => 'NA', // NA
+                    'apartment' => 'NA', // NA
+                    'city' => 'NA', // NA
+                    'country' => 'NA', // NA
+                ]
+            ]);
+            return $response->json()['token'];
+        }catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 }
