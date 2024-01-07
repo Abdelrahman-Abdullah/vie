@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\API\{
-    CheckPasswordResetCodeController,
+use App\Http\Controllers\API\{CheckPasswordResetCodeController,
     ForgetPasswordController,
+    PaymentStatusController,
     ResetPasswordController,
     UserAuthSessions,
     UserRegistrationController,
-    PaymobMobileWalletController
-};
+    PaymobMobileWalletController};
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
@@ -60,6 +59,7 @@ Route::prefix('products')->name('products.')
 #region Paymob Mobile Wallet API Routes
 Route::prefix('paymob-mobile-wallet')->name('paymob-mobile-wallet.')
     ->group(function () {
-        Route::get('frame', PaymobMobileWalletController::class)->name('frame');
+        Route::post('frame', PaymobMobileWalletController::class)->middleware('auth:sanctum')->name('frame');
+        Route::get('payment-status', PaymentStatusController::class)->name('payment-status');
     });
 #endregion

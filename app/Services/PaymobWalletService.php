@@ -20,7 +20,9 @@ class PaymobWalletService
     public function getOrderItems(array $orders): array
     {
         $items = [];
+        $total_price = 0;
         foreach ($orders['items'] as $order) {
+            $total_price += $order['price'];
             $items[] = [
                 'name' => $order['name'],
                 'amount_cents' => $order['price'] * 100,
@@ -28,8 +30,13 @@ class PaymobWalletService
                 'quantity' => $order['quantity'] ?? 1,
             ];
         }
-        return $items;
+        return [
+            'items' => $items,
+            'total_price' => $total_price,
+        ];
     }
+
+
 
 
 }

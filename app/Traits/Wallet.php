@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Http\Requests\API\PayOrderRequest;
+use App\Services\OrderService;
 use App\Services\PaymobWalletService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -10,7 +11,10 @@ use Illuminate\Support\Facades\Http;
 
 trait Wallet
 {
-    public function __construct(protected PaymobWalletService $paymobWalletService){}
+//    public function __construct(
+//        protected PaymobWalletService $paymobWalletService,
+//        protected OrderService $orderService
+//    ){}
 
     protected string $base_url = 'https://accept.paymob.com/api';
     protected string $auth_token;
@@ -36,7 +40,7 @@ trait Wallet
     protected function orderRegistration(PayOrderRequest $request): bool|static|JsonResponse
     {
         try {
-            $order_items = $this->paymobWalletService->getOrderItems($request->validated());
+            $order = $this->paymobWalletService->getOrderItems($request->validated());
 
             $response = Http::withHeaders(
                 $this->paymobWalletService->getUnAuthRequestHeader()
@@ -45,10 +49,11 @@ trait Wallet
                 'delivery_needed' => false ,// true or false,
                 'amount_cents'=> '100', // 100
                 'currency'=> 'EGP', // EGP
-                 'items' => $order_items,
+                 'items' => $order['items'],
             ]);
 
             $this->order_id = $response->json()['id'];
+            $this->orderService->store(  $this->order_id , $order['total_price']);
             return $this;
 
 

@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('order_id');
             $table->decimal('amount', 8, 2);
             $table->string('currency')->default('EGP');
-            $table->enum('status', ['pending', 'paid', 'failed'])->default('pending');
+            $table->string('status')->default(App\Enum\OrderStatus::PENDING);
             $table->timestamps();
         });
     }
