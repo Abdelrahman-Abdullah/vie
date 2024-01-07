@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
-trait Wallet
+trait PaymobPreConnection
 {
 //    public function __construct(
 //        protected PaymobWalletService $paymobWalletService,
