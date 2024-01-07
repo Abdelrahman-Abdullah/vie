@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PayOrderRequest;
 use App\Services\OrderService;
 use App\Services\PaymobWalletService;
-use App\Traits\Wallet;
+use App\Traits\PaymobPreConnection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class PaymobMobileWalletController extends Controller
 {
-    use Wallet;
+    use PaymobPreConnection;
 
     public function __construct(protected PaymobWalletService $paymobWalletService, protected OrderService $orderService){}
 
