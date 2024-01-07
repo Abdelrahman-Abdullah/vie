@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Http;
 
 trait PaymobPreConnection
 {
-//    public function __construct(
-//        protected PaymobWalletService $paymobWalletService,
-//        protected OrderService $orderService
-//    ){}
 
     protected string $base_url = 'https://accept.paymob.com/api';
     protected string $auth_token;
