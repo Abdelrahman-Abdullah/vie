@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Http;
 
 trait Wallet
 {
-    public function __construct(
-        protected PaymobWalletService $paymobWalletService,
-        protected OrderService $orderService
-    ){}
+//    public function __construct(
+//        protected PaymobWalletService $paymobWalletService,
+//        protected OrderService $orderService
+//    ){}
 
     protected string $base_url = 'https://accept.paymob.com/api';
     protected string $auth_token;
@@ -53,7 +53,7 @@ trait Wallet
             ]);
 
             $this->order_id = $response->json()['id'];
-            $this->orderService->store([$order['total_price'], $this->order_id]);
+            $this->orderService->store(  $this->order_id , $order['total_price']);
             return $this;
 
 

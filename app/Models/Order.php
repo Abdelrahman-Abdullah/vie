@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Order extends Model
 {
     use HasFactory;
+    protected $fillable = ['order_id', 'amount', 'status'];
     protected $casts = [
         'status' => OrderStatus::class,
     ];
